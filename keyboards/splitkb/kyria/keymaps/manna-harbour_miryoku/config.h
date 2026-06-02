@@ -5,6 +5,8 @@
 
 #pragma once
 
+#define OLED_TIMEOUT 0
+
 #define XXX KC_NO
 
 #if defined MIRYOKU_MAPPING_EXTENDED_THUMBS
