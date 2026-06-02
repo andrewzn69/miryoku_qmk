@@ -15,3 +15,8 @@ bool rgb_matrix_indicators_user(void) {
 }
 #endif
 
+// GP24 is the Liatris power LED (active low) - set high to turn it off
+void keyboard_post_init_user(void) {
+    setPinOutput(24U);
+    writePinHigh(24U);
+}
