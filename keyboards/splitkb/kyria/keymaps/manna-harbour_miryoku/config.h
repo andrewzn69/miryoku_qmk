@@ -5,6 +5,7 @@
 
 #pragma once
 
+#define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 0
 
 #define XXX KC_NO
