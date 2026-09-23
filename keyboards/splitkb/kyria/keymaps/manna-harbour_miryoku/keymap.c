@@ -50,19 +50,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-// set all leds covered by the active flags to red, blank the rest
-bool rgb_matrix_indicators_user(void) {
-    led_flags_t flags = rgb_matrix_get_flags();
-    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        if (g_led_config.flags[i] & flags) {
-            rgb_matrix_set_color(i, 255, 0, 0);
-        } else {
-            rgb_matrix_set_color(i, 0, 0, 0);
-        }
-    }
-    return false;
-}
 #endif
 
 void keyboard_post_init_user(void) {
