@@ -10,6 +10,9 @@
 
 #define XXX KC_NO
 
+// top left key (L06), unused by miryoku: cycle the rgb lighting modes
+#define U_RGBM QK_USER_0
+
 #if defined MIRYOKU_MAPPING_EXTENDED_THUMBS
 #define LAYOUT_miryoku( \
      K00, K01, K02, K03, K04,                          K05, K06, K07, K08, K09, \
@@ -18,7 +21,7 @@
      N30, N31, K32, K33, K34,                          K35, K36, K37, N38, N39 \
 ) \
 LAYOUT( \
-XXX, K00, K01, K02, K03, K04,                          K05, K06, K07, K08, K09, XXX, \
+U_RGBM, K00, K01, K02, K03, K04,                       K05, K06, K07, K08, K09, XXX, \
 XXX, K10, K11, K12, K13, K14,                          K15, K16, K17, K18, K19, XXX, \
 XXX, K20, K21, K22, K23, K24, XXX, XXX,      XXX, XXX, K25, K26, K27, K28, K29, XXX, \
                XXX, XXX, K32, K33, K34,      K35, K36, K37, XXX, XXX \
@@ -31,7 +34,7 @@ XXX, K20, K21, K22, K23, K24, XXX, XXX,      XXX, XXX, K25, K26, K27, K28, K29, 
      N30, N31, K32, K33, K34,                          K35, K36, K37, N38, N39 \
 ) \
 LAYOUT( \
-XXX, K00, K01, K02, K03, K04,                          K05, K06, K07, K08, K09, XXX, \
+U_RGBM, K00, K01, K02, K03, K04,                       K05, K06, K07, K08, K09, XXX, \
 XXX, K10, K11, K12, K13, K14,                          K15, K16, K17, K18, K19, XXX, \
 XXX, K20, K21, K22, K23, K24, XXX, XXX,      XXX, XXX, K25, K26, K27, K28, K29, XXX, \
                XXX, K32, K33, K34, XXX,      XXX, K35, K36, K37, XXX \

@@ -5,20 +5,76 @@
 
 #include QMK_KEYBOARD_H
 
-// set all leds to red
+// lighting modes cycled by U_RGBM, stored in the user eeconfig block because
+// rgb_config_t.raw is only 32 bits wide and drops .flags before eeprom
 #ifdef RGB_MATRIX_ENABLE
+
+enum rgb_mode {
+    RGB_MODE_ALL,       // per key + underglow
+    RGB_MODE_UNDERGLOW, // underglow only
+    RGB_MODE_KEYLIGHT,  // per key only
+    RGB_MODE_OFF,
+    RGB_MODE_COUNT
+};
+
+static uint8_t rgb_mode = RGB_MODE_ALL;
+
+static void rgb_mode_apply(void) {
+    switch (rgb_mode) {
+        case RGB_MODE_UNDERGLOW:
+            rgb_matrix_set_flags_noeeprom(LED_FLAG_UNDERGLOW);
+            rgb_matrix_enable_noeeprom();
+            break;
+        case RGB_MODE_KEYLIGHT:
+            rgb_matrix_set_flags_noeeprom(LED_FLAG_KEYLIGHT);
+            rgb_matrix_enable_noeeprom();
+            break;
+        case RGB_MODE_OFF:
+            rgb_matrix_disable_noeeprom();
+            break;
+        default:
+            rgb_matrix_set_flags_noeeprom(LED_FLAG_ALL);
+            rgb_matrix_enable_noeeprom();
+            break;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == U_RGBM) {
+        if (record->event.pressed) {
+            rgb_mode = (rgb_mode + 1) % RGB_MODE_COUNT;
+            rgb_mode_apply();
+            eeconfig_update_user(rgb_mode);
+        }
+        return false;
+    }
+    return true;
+}
+
+// set all leds covered by the active flags to red, blank the rest
 bool rgb_matrix_indicators_user(void) {
+    led_flags_t flags = rgb_matrix_get_flags();
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        rgb_matrix_set_color(i, 255, 0, 0);
+        if (g_led_config.flags[i] & flags) {
+            rgb_matrix_set_color(i, 255, 0, 0);
+        } else {
+            rgb_matrix_set_color(i, 0, 0, 0);
+        }
     }
     return false;
 }
 #endif
 
-// GP24 is the Liatris power LED (active low) - set high to turn it off
 void keyboard_post_init_user(void) {
+    // GP24 is the Liatris power LED (active low) - set high to turn it off
     setPinOutput(24U);
     writePinHigh(24U);
+
+#ifdef RGB_MATRIX_ENABLE
+    uint32_t stored = eeconfig_read_user();
+    rgb_mode        = stored < RGB_MODE_COUNT ? stored : RGB_MODE_ALL;
+    rgb_mode_apply();
+#endif
 }
 
 // oled display
