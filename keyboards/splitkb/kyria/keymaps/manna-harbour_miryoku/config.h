@@ -13,6 +13,32 @@
 // top left key (L06), unused by miryoku: cycle the rgb lighting modes
 #define U_RGBM QK_USER_0
 
+// only SOLID_COLOR is compiled in by default, leaving RGB_MOD nothing to step to
+#define ENABLE_RGB_MATRIX_CYCLE_ALL
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_DUAL_BEACON
+#define ENABLE_RGB_MATRIX_HUE_WAVE
+#define ENABLE_RGB_MATRIX_BREATHING
+#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#define ENABLE_RGB_MATRIX_PIXEL_RAIN
+
+// keypress tracking, required by the reactive effects below
+#define RGB_MATRIX_KEYPRESSES
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#define ENABLE_RGB_MATRIX_SPLASH
+#define ENABLE_RGB_MATRIX_SOLID_SPLASH
+
+// per key history buffer, required by the two effects below
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+
 #if defined MIRYOKU_MAPPING_EXTENDED_THUMBS
 #define LAYOUT_miryoku( \
      K00, K01, K02, K03, K04,                          K05, K06, K07, K08, K09, \
