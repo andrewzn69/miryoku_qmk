@@ -11,7 +11,21 @@
 - The Miryoku QMK development branch readme is at https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku
 
 
-** 
+* Build and flash: splitkb Kyria rev3
+
+#+begin_src sh
+nix-shell --run "qmk compile -kb splitkb/kyria/rev3 -km manna-harbour_miryoku -e CONVERT_TO=promicro_rp2040 -e MIRYOKU_ALPHAS=COLEMAK_DH -e MIRYOKU_MAPPING=EXTENDED_THUMBS"
+#+end_src
+
+Per half, in the bootloader (the 128M drive in =lsblk=):
+
+#+begin_src sh
+sudo mount -o sync /dev/sdXN /mnt/temp
+sudo cp splitkb_kyria_rev3_manna-harbour_miryoku_promicro_rp2040.uf2 /mnt/temp/
+#+end_src
+
+
+**
 
 [[https://github.com/manna-harbour][https://raw.githubusercontent.com/manna-harbour/miryoku/master/data/logos/manna-harbour-boa-32.png]]
  
